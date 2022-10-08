@@ -1,13 +1,14 @@
-import axios, { AxiosError } from 'axios';
+import axios, { type AxiosError } from 'axios';
+import slugify from 'slugify';
 
 export async function createLink(data: FormData) {
-	const slug = data.get('slug');
-	const to = data.get('to');
+	const slug = data.get('slug') as string;
+	const to = data.get('to') as string;
 
 	try {
 		const { data } = await axios.post('/api/link', {
 			data: {
-				slug,
+				slug: slugify(slug, { lower: true }),
 				to
 			}
 		});

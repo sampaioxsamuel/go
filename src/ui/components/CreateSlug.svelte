@@ -1,5 +1,6 @@
 <script lang="ts">
 	import clsx from 'clsx';
+	import { onMount } from 'svelte';
 
 	import { createLink } from '$/utils/api';
 
@@ -8,6 +9,7 @@
 	import Portal from './Portal.svelte';
 
 	let error: string | null = null;
+	let slugInput: HTMLInputElement | null;
 
 	export let onClose: () => void;
 
@@ -16,14 +18,18 @@
 
 		const request = await createLink(data);
 
-		console.log(request.data);
-
 		if (request.status === 400) {
 			const result = request;
 			// error = request;
 			return;
 		}
+
+		onClose();
 	}
+
+	onMount(() => {
+		slugInput?.focus();
+	});
 </script>
 
 <Portal>
@@ -38,6 +44,7 @@
 			<div class="px-4 space-y-6 mt-6">
 				<div>
 					<input
+						bind:this={slugInput}
 						id="slug"
 						name="slug"
 						class={clsx(
@@ -74,7 +81,7 @@
 
 			<div class="mt-8 w-full relative py-4 px-4 flex border-t border-t-zinc-900 border-opacity-5">
 				<div class="ml-auto space-x-4 flex">
-					<Button class="px-5 py-2.5" sizes="small">Cancel</Button>
+					<Button class="px-5 py-2.5" sizes="small" on:click={onClose}>Cancel</Button>
 					<Button type="submit" class="px-5 py-2.5" sizes="small" colorScheme="primary"
 						>Create</Button
 					>

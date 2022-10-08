@@ -25,9 +25,9 @@
 						'bg-gray-800 text-white hover:bg-gray-700 border border-gray-800',
 						'focus-visible:ring focus-visible:ring-gray-400 focus-visible:outline-none'
 					],
-					rose: [
-						'bg-rose-500 text-gray-50',
-						'focus-visible:ring focus-visible:ring-rose-300 focus-visible:outline-none'
+					red: [
+						'bg-red-500 text-gray-50',
+						'focus-visible:ring focus-visible:ring-red-300 focus-visible:outline-none'
 					],
 					base: [
 						'border-gray-300 text-gray-900 hover:bg-gray-100 outline-none',
@@ -49,7 +49,7 @@
 			size,
 			colorScheme: {
 				primary: 'text-gray-50 hover:text-gray-100',
-				rose: 'text-gray-800 hover:text-gray-600',
+				red: 'text-gray-800 hover:text-gray-600',
 				base: 'text-white',
 				ghost: ''
 			}

@@ -35,7 +35,7 @@
 				<Plus size={15} weight="bold" />
 			</Button>
 
-			<Button on:click={onLogout} colorScheme="rose" class="py-3">
+			<Button on:click={onLogout} colorScheme="red" class="py-3">
 				<SignOut size={15} weight="bold" />
 			</Button>
 		</div>
