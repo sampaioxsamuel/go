@@ -7,6 +7,7 @@
 	import Button from './Button.svelte';
 	import Modal from './Modal.svelte';
 	import Portal from './Portal.svelte';
+	import Input from './Input.svelte';
 
 	let error: string | null = null;
 	let slugInput: HTMLInputElement | null;
@@ -37,40 +38,21 @@
 		<form
 			on:submit|preventDefault={({ currentTarget }) => handleSubmit(currentTarget)}
 			method="POST"
-			class="w-full"
+			class="w-full px-6"
 		>
-			<h1 class="pl-4 pt-4 font-bold text-lg">New Redirect</h1>
+			<h1 class="pt-6 font-bold text-lg">New Redirect</h1>
 
-			<div class="px-4 space-y-6 mt-6">
-				<div>
-					<input
-						bind:this={slugInput}
-						id="slug"
-						name="slug"
-						class={clsx(
-							'w-full py-3 px-4 ease-in-out duration-300 transition-all border border-gray-200 rounded-xl outline-none',
-							'focus-visible:ring-2 focus-visible:ring-fuchsia-400 focus-visible:border-fuchsia-600',
-							'hover:ring-2 hover:ring-fuchsia-300 hover:border-fuchsia-500'
-						)}
-						type="text"
-						placeholder="Slug"
-					/>
-				</div>
+			<div class="space-y-6 mt-6">
+				<Input
+					bind:elementRef={slugInput}
+					autocomplete="off"
+					id="slug"
+					name="slug"
+					type="text"
+					placeholder="Slug"
+				/>
 
-				<div>
-					<input
-						id="to"
-						name="to"
-						class={clsx(
-							'w-full py-3 px-4 ease-in-out duration-300 transition-all border border-gray-200 rounded-xl outline-none',
-							'focus-visible:ring-2 focus-visible:ring-fuchsia-400 focus-visible:border-fuchsia-500',
-							'hover:ring-2 hover:ring-fuchsia-300 hover:border-fuchsia-500',
-							'disabled:opacity-70 disabled:hover:ring-0 disabled:hover:border-gray-200'
-						)}
-						type="text"
-						placeholder="To"
-					/>
-				</div>
+				<Input autocomplete="off" type="text" id="to" placeholder="To" />
 			</div>
 
 			{#if error}
@@ -79,11 +61,25 @@
 				</span>
 			{/if}
 
-			<div class="mt-8 w-full relative py-4 px-4 flex border-t border-t-zinc-900 border-opacity-5">
+			<div class="w-full py-4 flex mt-8">
+				<div
+					class="absolute left-0 bottom-[75px] before:content-[''] w-full h-[1px] bg-gray-900 opacity-5"
+				/>
+
 				<div class="ml-auto space-x-4 flex">
-					<Button class="px-5 py-2.5" sizes="small" on:click={onClose}>Cancel</Button>
-					<Button type="submit" class="px-5 py-2.5" sizes="small" colorScheme="primary"
-						>Create</Button
+					<Button
+						class="px-5 py-2.5"
+						size="small"
+						colorScheme="base"
+						variant="solid"
+						on:click={onClose}>Cancel</Button
+					>
+					<Button
+						type="submit"
+						class="px-5 py-2.5"
+						size="small"
+						colorScheme="primary"
+						variant="solid">Create</Button
 					>
 				</div>
 			</div>

@@ -21,21 +21,29 @@
 </script>
 
 <header class="flex items-center justify-between mt-8 h-14">
-	<a href="/" class="text-2xl font-medium text-gray-900">Go</a>
+	<Button
+		href="/"
+		variant="link"
+		colorScheme="primary"
+		size="extraLarge"
+		class="font-semibold text-gray-900 hover:text-gray-600">Go</Button
+	>
 
 	{#if $loging}
 		<Spinner />
 	{/if}
 
 	{#if !$loging && !$isAuthenticated}
-		<Button on:click={auth.loginWithPopup} class="text-sm" colorScheme="primary">Login</Button>
+		<Button on:click={auth.loginWithPopup} class="text-sm" variant="solid" colorScheme="primary"
+			>Login</Button
+		>
 	{:else if $user}
 		<div class="gap-4 flex items-center">
-			<Button on:click={onModalOpen} colorScheme="primary" class="py-3">
+			<Button on:click={onModalOpen} colorScheme="primary" variant="solid" class="py-3">
 				<Plus size={15} weight="bold" />
 			</Button>
 
-			<Button on:click={onLogout} colorScheme="red" class="py-3">
+			<Button on:click={onLogout} colorScheme="red" variant="solid" class="py-3">
 				<SignOut size={15} weight="bold" />
 			</Button>
 		</div>
