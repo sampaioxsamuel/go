@@ -38,9 +38,9 @@ async function loginWithPopup(options?: PopupLoginOptions) {
 async function logout() {
 	const clientId = await createClient();
 
-	clientId.logout();
 	isAuthenticated.set(false);
 	user.set(undefined);
+	clientId.logout();
 }
 
 async function getUser() {

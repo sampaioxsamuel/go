@@ -1,6 +1,8 @@
 <script>
 	import Main from '$/ui/layout/Main.svelte';
 	import { page } from '$app/stores';
+
+	console.trace($page.status, $page.error);
 </script>
 
 <Main title="Page not found" class="flex flex-col items-center justify-center min-h-screen">

@@ -34,7 +34,7 @@
 	{/if}
 
 	{#if !$loging && !$isAuthenticated}
-		<Button on:click={auth.loginWithPopup} class="text-sm" variant="solid" colorScheme="primary"
+		<Button on:click={auth.loginWithPopup} size="small" variant="solid" colorScheme="primary"
 			>Login</Button
 		>
 	{:else if $user}
