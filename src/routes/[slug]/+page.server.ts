@@ -4,8 +4,8 @@ import { error, redirect, type LoadEvent } from '@sveltejs/kit';
 export async function load({ params, setHeaders }: LoadEvent) {
 	const { slug } = params;
 
-	if (!slug) {
-		throw error(404, 'Slug not found');
+	if (!slug || slug === '/') {
+		return;
 	}
 
 	const data = await prismaClient.link.findFirst({

@@ -26,7 +26,7 @@
 		variant="link"
 		colorScheme="primary"
 		size="extraLarge"
-		class="font-semibold text-gray-900 hover:text-gray-600">Go</Button
+		class="text-3xl font-bold text-gray-900 hover:text-gray-600">Go</Button
 	>
 
 	{#if $loging}
@@ -34,17 +34,19 @@
 	{/if}
 
 	{#if !$loging && !$isAuthenticated}
-		<Button on:click={auth.loginWithPopup} size="small" variant="solid" colorScheme="primary"
+		<Button on:click={auth.loginWithPopup} size="small" variant="solid" colorScheme="sign"
 			>Login</Button
 		>
 	{:else if $user}
 		<div class="gap-4 flex items-center">
-			<Button on:click={onModalOpen} colorScheme="primary" variant="solid" class="py-3">
-				<Plus size={15} weight="bold" />
+			<Button on:click={onModalOpen} colorScheme="sign" variant="solid" class="">
+				<!-- <Plus size={22} weight="bold" /> -->
+				Add
 			</Button>
 
-			<Button on:click={onLogout} colorScheme="red" variant="solid" class="py-3">
-				<SignOut size={15} weight="bold" />
+			<Button on:click={onLogout} colorScheme="lightRed" variant="solid">
+				<!-- <SignOut size={22} weight="bold" /> -->
+				Log out
 			</Button>
 		</div>
 	{/if}

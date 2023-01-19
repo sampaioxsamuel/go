@@ -8,6 +8,7 @@
 	import Modal from './Modal.svelte';
 	import Portal from './Portal.svelte';
 	import Input from './Input.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	let error: string | null = null;
 	let slugInput: HTMLInputElement | null;
@@ -20,9 +21,11 @@
 		const request = await createLink(data);
 
 		if (request.status === 400) {
-			const result = request;
-			// error = request;
 			return;
+		}
+
+		if (request.data) {
+			invalidateAll();
 		}
 
 		onClose();

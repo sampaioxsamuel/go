@@ -1,8 +1,9 @@
 import { json } from '@sveltejs/kit';
+import type { ZodError } from 'zod';
 
-export type JsonResponseType =
+export type JsonResponseType<T = any> =
 	| {
-			data?: any;
+			data?: T;
 			message?: string;
 			error?: never;
 	  }
@@ -10,13 +11,18 @@ export type JsonResponseType =
 			data?: never;
 			message?: string;
 			error?: {
-				status: number;
-				body: any;
-			};
+				message: string;
+				path: string;
+			}[];
 	  };
 
-const JsonResponse = (data: JsonResponseType, status: number) => {
+export function jsonResponse<T>(data: JsonResponseType<T>, status: number) {
 	return json(data, { status });
-};
+}
 
-export default JsonResponse;
+export function transformError<Schema>(validation: ZodError<Schema>) {
+	return validation.errors.map((error) => ({
+		path: error.path.join(''),
+		message: error.message
+	}));
+}

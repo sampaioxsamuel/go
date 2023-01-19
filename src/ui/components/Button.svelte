@@ -13,7 +13,7 @@
 		variants: {
 			link: 'whitespace-nowrap ',
 			solid: [
-				'shadow-sm px-4 py-2 border border-transparent rounded-lg',
+				'font-medium px-6 py-2 border border-transparent rounded-full',
 				'ease-in-out duration-300 flex items-center justify-center'
 			]
 		},
@@ -29,8 +29,8 @@
 			primary: {
 				link: 'text-gray-800',
 				solid: [
-					'bg-gray-800 text-white hover:bg-gray-700 border border-gray-800',
-					'focus-visible:ring focus-visible:ring-gray-400 outline-none'
+					'bg-zinc-900 text-white hover:bg-zinc-800 hover:border-zinc-800 border border-zinc-900',
+					'focus-visible:ring focus-visible:ring-zinc-400 outline-none'
 				]
 			},
 			red: {
@@ -38,6 +38,20 @@
 				solid: [
 					'bg-red-500 text-gray-50',
 					'focus-visible:ring focus-visible:ring-red-300 focus-visible:outline-none'
+				]
+			},
+			lightRed: {
+				link: '',
+				solid: [
+					'bg-red-100 text-red-600 font-semibold',
+					'hover:bg-red-200 focus-visible:ring focus-visible:ring-red-200 focus-visible:outline-none'
+				]
+			},
+			sign: {
+				link: '',
+				solid: [
+					'bg-zinc-100 text-zinc-900 focus-visible:outline-none font-semibold',
+					'hover:bg-zinc-200'
 				]
 			}
 		}
@@ -50,7 +64,7 @@
 	type Variant = keyof typeof styling['variants'];
 	type Size = keyof typeof styling['sizes'];
 
-	export let colorScheme: ColorScheme;
+	export let colorScheme: ColorScheme = 'base';
 	export let variant: Variant = 'link';
 	export let size: Size = 'medium';
 

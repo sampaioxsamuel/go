@@ -8,6 +8,7 @@
 	import { page } from '$app/stores';
 
 	let isModalOpen = false;
+
 	$: pageTitle = isModalOpen ? 'Create slug' : 'Home';
 
 	function onModalOpen() {
