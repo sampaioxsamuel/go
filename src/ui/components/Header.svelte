@@ -1,22 +1,13 @@
 <script lang="ts">
-	import Plus from 'phosphor-svelte/lib/Plus';
-	import SignOut from 'phosphor-svelte/lib/SignOut';
+	import { signIn, signOut } from '@auth/sveltekit/client';
+	import { page } from '$app/stores';
 	import { createEventDispatcher } from 'svelte';
-
-	import auth from '$/lib/auth0';
-	import { isAuthenticated, loging, user } from '$/store';
-	import Button from '$/ui/components/Button.svelte';
-	import Spinner from '$/ui/components/Spinner.svelte';
+	import Button from './Button.svelte';
 
 	const dispatch = createEventDispatcher();
 
 	function onModalOpen(event: CustomEvent<MouseEvent>) {
 		dispatch('modalOpen', event);
-	}
-
-	function onLogout(event: CustomEvent<MouseEvent>) {
-		event.preventDefault();
-		auth.logout();
 	}
 </script>
 
@@ -29,25 +20,15 @@
 		class="text-3xl font-bold text-gray-900 hover:text-gray-600">Go</Button
 	>
 
-	{#if $loging}
-		<Spinner />
-	{/if}
+	{#if $page.data.session && $page.data.session.user}
+		<div class="flex gap-6 justify-center items-center">
+			<strong>{$page.data.session.user.name}</strong>
 
-	{#if !$loging && !$isAuthenticated}
-		<Button on:click={auth.loginWithPopup} size="small" variant="solid" colorScheme="sign"
-			>Login</Button
-		>
-	{:else if $user}
-		<div class="gap-4 flex items-center">
-			<Button on:click={onModalOpen} colorScheme="sign" variant="solid" class="">
-				<!-- <Plus size={22} weight="bold" /> -->
-				Add
-			</Button>
-
-			<Button on:click={onLogout} colorScheme="lightRed" variant="solid">
-				<!-- <SignOut size={22} weight="bold" /> -->
-				Log out
-			</Button>
+			<Button variant="solid" colorScheme="lightRed" on:click={() => signOut()}>Sign out</Button>
 		</div>
+	{:else}
+		<Button variant="solid" colorScheme="sign" on:click={() => signIn('github')}
+			>Sign In with GitHub</Button
+		>
 	{/if}
 </header>
