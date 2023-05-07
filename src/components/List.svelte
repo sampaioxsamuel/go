@@ -5,6 +5,7 @@
 	import type { Link } from '@prisma/client';
 	import { deleteLink, getRedirects } from '$/utils/api/';
 	import { invalidate, invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let items: Link[];
 	const DATE_FORMAT = 'MM/dd/yyyy HH:mm';
@@ -16,8 +17,6 @@
 	};
 
 	async function onDelete(id: number) {
-		console.log('aqui?');
-
 		deleteLink(id).then(async (res) => {
 			if (res.data) {
 				invalidateAll();
@@ -34,6 +33,7 @@
 					<a
 						href={item.slug}
 						target="_blank"
+						rel="noreferrer"
 						class="leading-none text-lg text-zinc-900 font-semibold capitalize"
 					>
 						{item.slug}
@@ -48,8 +48,13 @@
 					>
 				</div>
 
-				<a class="text-sm text-zinc-600 font-medium truncate" href={item.redirect} target="_blank"
-					>{item.redirect}</a
+				<a
+					class="text-sm text-zinc-600 font-medium truncate"
+					href={item.redirect}
+					target="_blank"
+					rel="noreferrer"
+				>
+					{item.redirect}</a
 				>
 			</div>
 
