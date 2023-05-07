@@ -5,6 +5,7 @@
 	import type { Link } from '@prisma/client';
 	import { deleteLink, getRedirects } from '$/utils/api/';
 	import { invalidate, invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let items: Link[];
 	const DATE_FORMAT = 'MM/dd/yyyy HH:mm';

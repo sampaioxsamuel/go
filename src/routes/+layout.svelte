@@ -1,16 +1,7 @@
 <script lang="ts">
-	import '$/ui/styles/global.css';
-
-	// import { onMount } from 'svelte';
-
-	// import { isAuthenticated } from '$/store';
-	// import auth from '$/lib/auth0';
-
-	// onMount(async () => {
-	// 	if ($isAuthenticated) return;
-
-	// 	await auth.getUser();
-	// });
+	import '$/styles/global.css';
 </script>
 
-<slot />
+<main class={`max-w-6xl mx-auto px-6 w-full h-full`}>
+	<slot />
+</main>

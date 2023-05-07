@@ -10,8 +10,19 @@ export async function GET() {
 	return jsonResponse({ data }, 200);
 }
 
-export async function POST({ request }: RequestEvent) {
+export async function POST({ request, locals }: RequestEvent) {
+	const user = await locals.getSession();
 	const json = await request.json();
+
+	if (!user) {
+		return jsonResponse(
+			{
+				message: 'Missing user session',
+				data: null
+			},
+			401
+		);
+	}
 
 	const schema = z.object({
 		slug: z.string().min(3),

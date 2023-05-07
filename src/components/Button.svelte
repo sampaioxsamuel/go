@@ -1,5 +1,5 @@
 <script lang="ts">
-	import clsx from 'clsx';
+	import cn from '$/utils/cn';
 	import { createEventDispatcher } from 'svelte';
 
 	const styling = {
@@ -43,8 +43,8 @@
 			lightRed: {
 				link: '',
 				solid: [
-					'bg-red-100 text-red-600 font-semibold',
-					'hover:bg-red-200 focus-visible:ring focus-visible:ring-red-200 focus-visible:outline-none'
+					'bg-red-200 text-red-800 font-semibold',
+					'hover:bg-red-300/90 focus-visible:ring focus-visible:ring-red-200 focus-visible:outline-none'
 				]
 			},
 			sign: {
@@ -60,15 +60,15 @@
 	let classNames = '';
 	export { classNames as class };
 
-	type ColorScheme = keyof typeof styling['colorSchemes'];
-	type Variant = keyof typeof styling['variants'];
-	type Size = keyof typeof styling['sizes'];
+	type ColorScheme = keyof (typeof styling)['colorSchemes'];
+	type Variant = keyof (typeof styling)['variants'];
+	type Size = keyof (typeof styling)['sizes'];
 
 	export let colorScheme: ColorScheme = 'base';
 	export let variant: Variant = 'link';
 	export let size: Size = 'medium';
 
-	const classes = clsx([
+	const classes = cn([
 		classNames,
 		styling.base,
 		styling.sizes[size],

@@ -13,6 +13,6 @@
 	/>
 </svelte:head>
 
-<main class={`max-w-6xl mx-auto px-6 w-full h-full ${className}`}>
+<main class={`dark:bg-zinc-900 dark:text-white max-w-6xl mx-auto px-6 w-full h-full ${className}`}>
 	<slot />
 </main>

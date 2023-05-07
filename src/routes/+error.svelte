@@ -1,5 +1,5 @@
 <script>
-	import Main from '$/ui/layout/Main.svelte';
+	import Main from '$/components/layout/Main.svelte';
 	import { page } from '$app/stores';
 
 	console.trace($page.status, $page.error);
