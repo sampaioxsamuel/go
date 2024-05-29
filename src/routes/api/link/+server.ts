@@ -1,17 +1,18 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import { fail, json } from '@sveltejs/kit';
 import { z } from 'zod';
 
-import { type JsonResponseType, jsonResponse, transformError } from '$/utils/Response';
 import prisma from '$/lib/db';
 import slugify from 'slugify';
+import type { RequestEvent } from './$types';
 
 export async function GET() {
 	const data = await prisma.link.findMany();
-	return jsonResponse({ data }, 200);
+	return json({ data });
 }
 
 export async function POST({ request }: RequestEvent) {
-	const json = await request.json();
+	const formData = await request.formData();
+	const form = Object.fromEntries(formData);
 
 	const schema = z.object({
 		slug: z.string().min(3),
@@ -19,16 +20,13 @@ export async function POST({ request }: RequestEvent) {
 	});
 
 	try {
-		const validation = schema.safeParse(json.data);
+		const validation = schema.safeParse(form);
 
 		if (!validation.success) {
-			return jsonResponse(
-				{
-					message: 'Validation Error',
-					error: transformError(validation.error)
-				},
-				400
-			);
+			console.log('HERE');
+			return json({
+				message: 'Validation Error'
+			});
 		}
 
 		const { to } = validation.data;
@@ -40,23 +38,18 @@ export async function POST({ request }: RequestEvent) {
 		});
 
 		if (slugExists) {
-			return jsonResponse(
-				{
-					message: 'Slug already exists',
-					error: [{ message: 'Slug already exists', path: 'slug' }]
-				},
-				400
-			);
+			return fail(400, {
+				message: 'Slug already exists',
+				path: 'slug'
+			});
 		}
 
 		const data = await prisma.link.create({
 			data: { slug, redirect: to }
 		});
 
-		return jsonResponse({ data }, 200);
+		return json({ data });
 	} catch (e) {
-		const parsedError = e as JsonResponseType;
-
-		return jsonResponse(parsedError, 400);
+		return fail(400, { message: e });
 	}
 }

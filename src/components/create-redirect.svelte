@@ -1,35 +1,16 @@
 <script lang="ts">
-	import clsx from 'clsx';
 	import { onMount } from 'svelte';
 
-	import { createLink } from '$/utils/api';
-
-	import Button from './Button.svelte';
-	import Modal from './Modal.svelte';
-	import Portal from './Portal.svelte';
-	import Input from './Input.svelte';
-	import { invalidateAll } from '$app/navigation';
+	import { enhance } from '$app/forms';
+	import Button from './ui/button.svelte';
+	import Input from './ui/input.svelte';
+	import Modal from './ui/modal.svelte';
+	import Portal from './ui/portal.svelte';
 
 	let error: string | null = null;
 	let slugInput: HTMLInputElement | null;
 
 	export let onClose: () => void;
-
-	async function handleSubmit(form: HTMLFormElement) {
-		const data = new FormData(form);
-
-		const request = await createLink(data);
-
-		if (request.status === 400) {
-			return;
-		}
-
-		if (request.data) {
-			invalidateAll();
-		}
-
-		onClose();
-	}
 
 	onMount(() => {
 		slugInput?.focus();
@@ -38,11 +19,7 @@
 
 <Portal>
 	<Modal class="max-w-lg w-full items-start relative rounded-2xl" on:onClose={onClose}>
-		<form
-			on:submit|preventDefault={({ currentTarget }) => handleSubmit(currentTarget)}
-			method="POST"
-			class="w-full px-6"
-		>
+		<form use:enhance method="POST" action="?/create" class="w-full px-6">
 			<h1 class="pt-6 font-bold text-lg">New Redirect</h1>
 
 			<div class="space-y-6 mt-6">

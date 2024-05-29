@@ -1,15 +1,12 @@
 <script lang="ts">
-	import { isAuthenticated } from '$/store';
-	import CreateSlug from '$/ui/components/CreateSlug.svelte';
-	import Header from '$/ui/components/Header.svelte';
-	import List from '$/ui/components/List.svelte';
-	import Main from '$/ui/layout/Main.svelte';
-
+	import CreateSlug from '$/components/create-redirect.svelte';
+	import Header from '$/components/ui/header.svelte';
+	import Container from '$/components/layout/container.svelte';
 	import { page } from '$app/stores';
+	import type { PageData } from './$types';
+	import List from '../components/ui/list.svelte';
 
 	let isModalOpen = false;
-
-	$: pageTitle = isModalOpen ? 'Create slug' : 'Home';
 
 	function onModalOpen() {
 		isModalOpen = !isModalOpen;
@@ -18,16 +15,18 @@
 	function onClose() {
 		isModalOpen = false;
 	}
+
+	export let data: PageData;
 </script>
 
-<Main title={pageTitle}>
+<Container>
 	<Header on:modalOpen={onModalOpen} />
 
-	<!-- {#if $isAuthenticated}
-		<List items={$page.data.links} />
+	{#if $page.data.user && data.links}
+		<List items={data.links} />
 	{/if}
 
 	{#if isModalOpen}
 		<CreateSlug {onClose} />
-	{/if} -->
-</Main>
+	{/if}
+</Container>

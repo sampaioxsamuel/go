@@ -44,6 +44,7 @@
     "@auth0/auth0-spa-js": "^2.1.3",
     "@libsql/client": "^0.6.0",
     "@lucia-auth/adapter-sqlite": "^3.0.1",
+    "@lucia-auth/sveltekit": "^0.6.11",
     "@prisma/adapter-libsql": "^5.14.0",
     "@prisma/client": "^5.14.0",
     "argon2": "^0.40.3",
