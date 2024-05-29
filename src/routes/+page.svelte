@@ -23,11 +23,11 @@
 <Main title={pageTitle}>
 	<Header on:modalOpen={onModalOpen} />
 
-	{#if $isAuthenticated}
+	<!-- {#if $isAuthenticated}
 		<List items={$page.data.links} />
 	{/if}
 
 	{#if isModalOpen}
 		<CreateSlug {onClose} />
-	{/if}
+	{/if} -->
 </Main>
