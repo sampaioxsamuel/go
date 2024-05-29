@@ -21,11 +21,18 @@ model Link {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
+  id         String    @id @default(cuid())
   name       String
   email      String
-  nickname   String?
-  picture    String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  password   String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  Session    Session[]
+}
+
+model Session {
+  id         String @id
+  expires_at Int
+  user       User   @relation(fields: [user_id], references: [id])
+  user_id    String
 }

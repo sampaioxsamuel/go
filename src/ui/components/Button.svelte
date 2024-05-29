@@ -13,7 +13,7 @@
 		variants: {
 			link: 'whitespace-nowrap ',
 			solid: [
-				'font-medium px-6 py-2 border border-transparent rounded-full',
+				'font-medium px-6 py-2 border border-transparent rounded-md',
 				'ease-in-out duration-300 flex items-center justify-center'
 			]
 		},
@@ -60,9 +60,9 @@
 	let classNames = '';
 	export { classNames as class };
 
-	type ColorScheme = keyof typeof styling['colorSchemes'];
-	type Variant = keyof typeof styling['variants'];
-	type Size = keyof typeof styling['sizes'];
+	type ColorScheme = keyof (typeof styling)['colorSchemes'];
+	type Variant = keyof (typeof styling)['variants'];
+	type Size = keyof (typeof styling)['sizes'];
 
 	export let colorScheme: ColorScheme = 'base';
 	export let variant: Variant = 'link';

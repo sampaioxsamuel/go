@@ -2,7 +2,7 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { z } from 'zod';
 
 import { type JsonResponseType, jsonResponse, transformError } from '$/utils/Response';
-import prisma from '$/lib/prisma';
+import prisma from '$/lib/db';
 import slugify from 'slugify';
 
 export async function GET() {

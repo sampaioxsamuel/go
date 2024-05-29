@@ -1,4 +1,4 @@
-import prismaClient from '$/lib/prisma';
+import prismaClient from '$/lib/db';
 import { jsonResponse, type JsonResponseType } from '$/utils/Response';
 import type { RequestEvent } from '@sveltejs/kit';
 

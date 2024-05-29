@@ -4,9 +4,9 @@ import type { Link } from '@prisma/client';
 // and what to do when importing types
 declare global {
 	declare namespace App {
-		// interface Locals {}
-		interface PageData {
-			links: Link[];
+		interface Locals {
+			user: import('lucia').User | null;
+			session: import('lucia').Session | null;
 		}
 		// interface Error {}
 		// interface Platform {}

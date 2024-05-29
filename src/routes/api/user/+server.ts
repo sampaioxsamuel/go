@@ -1,4 +1,4 @@
-import prisma from '$/lib/prisma';
+import prisma from '$/lib/db';
 import { Prisma } from '@prisma/client';
 import { json, type RequestEvent } from '@sveltejs/kit';
 import { z } from 'zod';
