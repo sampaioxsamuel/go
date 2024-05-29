@@ -3,9 +3,22 @@ import { createSession, lucia } from '$/lib/lucia';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import * as argon from 'argon2';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async () => {
+	if (process.env.ENABLE_SIGN_UP === 'false') {
+		redirect(302, '/');
+	}
+
+	return null;
+};
 
 export const actions: Actions = {
 	default: async (event) => {
+		if (process.env.ENABLE_SIGN_UP === 'false') {
+			redirect(302, '/');
+		}
+
 		const formData = await event.request.formData();
 		const name = formData.get('name');
 		const email = formData.get('email');
