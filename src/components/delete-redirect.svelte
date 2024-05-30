@@ -1,16 +1,21 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { Button } from './ui/button';
 	import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
 
-	let isOpen = true;
+	let isOpen = false;
 	export let id: number;
 
 	function onClose() {
 		id = -1;
 		isOpen = false;
 	}
+
+	onMount(() => {
+		isOpen = true;
+	});
 </script>
 
 <Dialog open={isOpen} onOpenChange={onClose}>

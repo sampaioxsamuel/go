@@ -9,13 +9,7 @@
 	export let items: Link[];
 	const DATE_FORMAT = 'MM/dd/yyyy HH:mm';
 
-	let currentId: number | null;
-
 	let deleteId = -1;
-
-	const onHovering = (id: number | null) => {
-		currentId = id;
-	};
 </script>
 
 <section id="redirect-list" class="grid grid-cols-3 gap-4 mt-8">
@@ -45,12 +39,7 @@
 			</div>
 
 			<div class="ml-auto" id="actions">
-				<button
-					on:mouseenter={() => onHovering(item.id)}
-					on:mouseleave={() => onHovering(null)}
-					on:click={() => (deleteId = item.id)}
-					class="hover:text-red-500"
-				>
+				<button on:click={() => (deleteId = item.id)} class="hover:text-red-500 transition-colors">
 					<TrashSimple size={18} />
 				</button>
 			</div>
@@ -59,5 +48,5 @@
 </section>
 
 {#if deleteId !== -1}
-	<DeleteRedirect id={deleteId} />
+	<DeleteRedirect bind:id={deleteId} />
 {/if}

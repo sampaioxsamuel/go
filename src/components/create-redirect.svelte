@@ -46,7 +46,6 @@
 				};
 			}}
 			method="POST"
-			action="?/create"
 			class="w-full flex flex-col gap-4"
 		>
 			{#if errorMessage}
