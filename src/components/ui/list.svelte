@@ -3,8 +3,7 @@
 
 	import { formatRelative, format } from 'date-fns';
 	import type { Link } from '@prisma/client';
-	import { deleteLink, getRedirects } from '$/utils/api/';
-	import { invalidate, invalidateAll } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 
 	export let items: Link[];
 	const DATE_FORMAT = 'MM/dd/yyyy HH:mm';
@@ -14,16 +13,6 @@
 	const onHovering = (id: number | null) => {
 		currentId = id;
 	};
-
-	async function onDelete(id: number) {
-		console.log('aqui?');
-
-		deleteLink(id).then(async (res) => {
-			if (res.data) {
-				invalidateAll();
-			}
-		});
-	}
 </script>
 
 <section id="redirect-list" class="flex flex-col gap-4 mt-8">
@@ -40,7 +29,7 @@
 					</a>
 
 					<time
-						class="text-xs leading-snug font-semibold text-zinc-400 capitalize"
+						class="text-xs leading-snug font-semibold text-zinc-400"
 						datetime={format(item.created_at, DATE_FORMAT)}
 						title={`Created at ${format(item.created_at, DATE_FORMAT)}`}
 					>
@@ -57,7 +46,6 @@
 				<button
 					on:mouseenter={() => onHovering(item.id)}
 					on:mouseleave={() => onHovering(null)}
-					on:click={() => onDelete(item.id)}
 					class="hover:text-red-500"
 				>
 					<TrashSimple weight={`${currentId === item.id ? 'fill' : 'bold'}`} size={18} />
