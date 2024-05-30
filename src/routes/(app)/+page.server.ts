@@ -63,5 +63,22 @@ export const actions: Actions = {
 		} catch (e) {
 			return { message: e };
 		}
+	},
+	delete: async ({ request, locals }) => {
+		if (!locals.session) return;
+
+		const formData = await request.formData();
+
+		const schema = z.object({
+			id: z.coerce.number()
+		});
+
+		const parsedData = schema.safeParse(Object.fromEntries(formData));
+
+		console.log({ parsedData });
+
+		if (!parsedData.success) return;
+
+		await db.link.delete({ where: { id: parsedData.data.id } });
 	}
 };
