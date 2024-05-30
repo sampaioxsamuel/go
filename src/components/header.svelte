@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import { Button } from './ui/button';
 	import type { ButtonEventHandler } from 'bits-ui';
+	import { pushState } from '$app/navigation';
 
 	const dispatch = createEventDispatcher();
 
@@ -28,7 +29,13 @@
 		<!-- <Button size="small" variant="solid" colorScheme="sign">Login</Button> -->
 	{:else if $page.data.user}
 		<div class="gap-4 flex items-center">
-			<Button on:click={onModalOpen}>Add</Button>
+			<Button
+				on:click={() => {
+					pushState('/create-redirect', {
+						createRedirect: true
+					});
+				}}>Add</Button
+			>
 			<!-- <Button on:click={onLogout} colorScheme="lightRed" variant="solid">Log out</Button> -->
 		</div>
 	{/if}

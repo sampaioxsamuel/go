@@ -8,6 +8,9 @@ declare global {
 			user: import('lucia').User | null;
 			session: import('lucia').Session | null;
 		}
+		interface PageState {
+			createRedirect?: boolean;
+		}
 		// interface Error {}
 		// interface Platform {}
 	}

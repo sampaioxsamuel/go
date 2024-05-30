@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Button from '$/components/ui/button.svelte';
 	import type { ActionData } from './$types';
 
 	import { enhance } from '$app/forms';
+	import { Button } from '$/components/ui/button';
 
 	export let form: ActionData;
 </script>
@@ -55,6 +55,6 @@
 			/>
 		</div>
 
-		<Button class="mt-4" variant="solid" colorScheme="primary" type="submit">Continue</Button>
+		<Button class="mt-4" type="submit">Continue</Button>
 	</form>
 </div>

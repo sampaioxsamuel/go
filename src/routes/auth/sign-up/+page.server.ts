@@ -6,9 +6,9 @@ import * as argon from 'argon2';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	if (process.env.ENABLE_SIGN_UP === 'false') {
-		redirect(302, '/');
-	}
+	// if (process.env.ENABLE_SIGN_UP === 'false') {
+	// 	redirect(302, '/');
+	// }
 
 	return null;
 };

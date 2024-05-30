@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
 	import { enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { Button } from './ui/button';
 	import {
 		Dialog,
@@ -14,10 +14,12 @@
 	import Input from './ui/input/input.svelte';
 	import { Label } from './ui/label';
 
+	let errorMessage = '';
 	let isOpen = false;
-	export let onClose: () => void;
 
-	let form: any;
+	function onClose() {
+		history.back();
+	}
 
 	onMount(() => {
 		isOpen = true;
@@ -34,18 +36,22 @@
 		<form
 			use:enhance={() => {
 				return async ({ result }) => {
-					if (result.type === 'failure') {
-						form = result.data;
+					if (result.type === 'failure' && typeof result.data?.message === 'string') {
+						errorMessage = result.data.message;
+						return;
 					}
+
+					await invalidateAll();
+					onClose();
 				};
 			}}
 			method="POST"
 			action="?/create"
 			class="w-full flex flex-col gap-4"
 		>
-			{#if form}
+			{#if errorMessage}
 				<span class="px-5 pt-2 block font-medium text-red-500">
-					{form?.message}
+					{errorMessage}
 				</span>
 			{/if}
 
