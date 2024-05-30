@@ -8,6 +8,6 @@ export const libsql = createClient({
 });
 
 const adapter = new PrismaLibSQL(libsql);
-const prismaClient = new PrismaClient({ adapter });
+const db = new PrismaClient({ adapter });
 
-export default prismaClient;
+export default db;

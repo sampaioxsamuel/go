@@ -1,4 +1,4 @@
-import prismaClient from '$/lib/db';
+import db from '$/lib/db';
 import { createSession, lucia } from '$/lib/lucia';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
@@ -42,7 +42,7 @@ export const actions: Actions = {
 			});
 		}
 
-		const user = await prismaClient.user.findFirst({ where: { email } });
+		const user = await db.user.findFirst({ where: { email } });
 
 		if (user) {
 			return fail(400, {
@@ -53,7 +53,7 @@ export const actions: Actions = {
 		const hashedPassword = await argon.hash(password);
 
 		try {
-			const user = await prismaClient.user.create({
+			const user = await db.user.create({
 				data: {
 					email: email,
 					password: hashedPassword,

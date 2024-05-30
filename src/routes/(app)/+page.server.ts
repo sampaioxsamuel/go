@@ -1,4 +1,4 @@
-import prismaClient from '$/lib/db';
+import db from '$/lib/db';
 import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		};
 	}
 
-	const links = await prismaClient.link.findMany();
+	const links = await db.link.findMany();
 
 	return {
 		links
