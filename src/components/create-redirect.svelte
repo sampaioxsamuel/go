@@ -2,67 +2,69 @@
 	import { onMount } from 'svelte';
 
 	import { enhance } from '$app/forms';
-	import Button from './ui/button.svelte';
-	import Input from './ui/input.svelte';
-	import Modal from './ui/modal.svelte';
-	import Portal from './ui/portal.svelte';
+	import { Button } from './ui/button';
+	import {
+		Dialog,
+		DialogContent,
+		DialogDescription,
+		DialogFooter,
+		DialogHeader,
+		DialogTitle
+	} from './ui/dialog';
+	import Input from './ui/input/input.svelte';
+	import { Label } from './ui/label';
 
-	let error: string | null = null;
-	let slugInput: HTMLInputElement | null;
-
+	let isOpen = false;
 	export let onClose: () => void;
 
+	let form: any;
+
 	onMount(() => {
-		slugInput?.focus();
+		isOpen = true;
 	});
 </script>
 
-<Portal>
-	<Modal class="max-w-lg w-full items-start relative rounded-2xl" on:onClose={onClose}>
-		<form use:enhance method="POST" action="?/create" class="w-full px-6">
-			<h1 class="pt-6 font-bold text-lg">New Redirect</h1>
+<Dialog open={isOpen} onOpenChange={onClose}>
+	<DialogContent>
+		<DialogHeader>
+			<DialogTitle>New redirect</DialogTitle>
+			<DialogDescription>Let's create a new redirect link. Ready?</DialogDescription>
+		</DialogHeader>
 
-			<div class="space-y-6 mt-6">
-				<Input
-					bind:elementRef={slugInput}
-					autocomplete="off"
-					id="slug"
-					name="slug"
-					type="text"
-					placeholder="Slug"
-				/>
-
-				<Input autocomplete="off" type="text" id="to" placeholder="To" />
-			</div>
-
-			{#if error}
+		<form
+			use:enhance={() => {
+				return async ({ result }) => {
+					if (result.type === 'failure') {
+						form = result.data;
+					}
+				};
+			}}
+			method="POST"
+			action="?/create"
+			class="w-full flex flex-col gap-4"
+		>
+			{#if form}
 				<span class="px-5 pt-2 block font-medium text-red-500">
-					{error}
+					{form?.message}
 				</span>
 			{/if}
 
-			<div class="w-full py-4 flex mt-8">
-				<div
-					class="absolute left-0 bottom-[75px] before:content-[''] w-full h-[1px] bg-gray-900 opacity-5"
-				/>
-
-				<div class="ml-auto space-x-4 flex">
-					<Button
-						class="px-5 py-2.5"
-						size="small"
-						colorScheme="base"
-						variant="solid"
-						on:click={onClose}>Cancel</Button
-					>
-					<Button
-						type="submit"
-						class="px-5 py-2.5"
-						size="small"
-						colorScheme="primary"
-						variant="solid">Create</Button
-					>
-				</div>
+			<div class="space-y-1.5">
+				<Label for="slug">Slug</Label>
+				<Input autocomplete="off" type="text" name="slug" id="slug" placeholder="google" />
 			</div>
+
+			<div class="space-y-1.5">
+				<Label for="to">Redirect To</Label>
+				<Input autocomplete="off" type="text" name="to" id="to" placeholder="http://google.com" />
+			</div>
+
+			<DialogFooter class="mt-4">
+				<div class="ml-auto space-x-4 flex">
+					<Button variant="secondary" on:click={onClose}>Cancel</Button>
+					<Button type="submit">Create</Button>
+				</div>
+			</DialogFooter>
 		</form>
-	</Modal>
-</Portal>
+	</DialogContent>
+</Dialog>

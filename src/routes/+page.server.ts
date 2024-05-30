@@ -36,10 +36,9 @@ export const actions: Actions = {
 			const validation = schema.safeParse(form);
 
 			if (!validation.success) {
-				return {
-					message: 'Validation Error',
-					paths: validation.error.formErrors.fieldErrors
-				};
+				return fail(400, {
+					message: 'Validation Error'
+				});
 			}
 
 			const { to } = validation.data;
