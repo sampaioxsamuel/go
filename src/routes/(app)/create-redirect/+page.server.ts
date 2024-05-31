@@ -7,7 +7,11 @@ import prisma from '$/lib/db';
 import slugify from 'slugify';
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
+		if (!locals.session?.userId) {
+			return;
+		}
+
 		const formData = await request.formData();
 		const form = Object.fromEntries(formData);
 
@@ -39,8 +43,16 @@ export const actions: Actions = {
 				});
 			}
 
-			const data = await prisma.link.create({
-				data: { slug, redirect: to }
+			await prisma.link.create({
+				data: {
+					slug,
+					redirect: to,
+					createdBy: {
+						connect: {
+							id: locals.session.userId
+						}
+					}
+				}
 			});
 
 			return {};

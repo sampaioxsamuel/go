@@ -30,6 +30,7 @@ export async function load({ params, setHeaders }: LoadEvent) {
 	setHeaders({
 		'Access-Control-Allow-Origin': '*',
 		'Content-Type': 'application/json'
+		// 'Cache-Control': 'max-age=3600'
 	});
 
 	throw redirect(307, data.redirect);

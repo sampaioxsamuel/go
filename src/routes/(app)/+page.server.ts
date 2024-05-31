@@ -3,15 +3,20 @@ import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 import { z } from 'zod';
+import { lucia } from '$/lib/lucia';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	if (!locals.session) {
+	if (!locals.session?.userId) {
 		return {
 			links: null
 		};
 	}
 
-	const links = await db.link.findMany();
+	const links = await db.link.findMany({
+		where: {
+			userId: locals.session.userId
+		}
+	});
 
 	return {
 		links
@@ -35,5 +40,15 @@ export const actions: Actions = {
 		if (!parsedData.success) return;
 
 		await db.link.delete({ where: { id: parsedData.data.id } });
+	},
+	logout: async ({ locals }) => {
+		if (!locals.session?.userId) return null;
+
+		await lucia.invalidateUserSessions(locals.session?.userId);
+
+		locals.session = null;
+		locals.user = null;
+
+		console.log('LOGOUT');
 	}
 };

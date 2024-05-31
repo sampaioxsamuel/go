@@ -2,7 +2,6 @@ import { dev } from '$app/environment';
 import { LibSQLAdapter } from '@lucia-auth/adapter-sqlite';
 import { Lucia } from 'lucia';
 import { libsql } from '../db';
-import type { RequestEvent } from '../../routes/$types';
 import type { Cookies } from '@sveltejs/kit';
 
 const adapter = new LibSQLAdapter(libsql, {

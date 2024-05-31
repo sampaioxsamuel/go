@@ -3,7 +3,6 @@
 
 	import { formatRelative, format } from 'date-fns';
 	import type { Link } from '@prisma/client';
-	import { invalidateAll } from '$app/navigation';
 	import DeleteRedirect from './delete-redirect.svelte';
 
 	export let items: Link[];
@@ -18,16 +17,16 @@
 			<div class="flex justify-center gap-2 flex-col">
 				<time
 					class="text-xs leading-snug font-semibold text-zinc-400"
-					datetime={format(item.created_at, DATE_FORMAT)}
-					title={`Created at ${format(item.created_at, DATE_FORMAT)}`}
+					datetime={format(item.createdAt, DATE_FORMAT)}
+					title={`Created at ${format(item.createdAt, DATE_FORMAT)}`}
 				>
-					{formatRelative(item.created_at, new Date())}</time
+					{formatRelative(item.createdAt, new Date())}</time
 				>
 				<div class="flex items-end gap-2.5 w-full">
 					<a
 						href={item.slug}
 						target="_blank"
-						class="leading-none text-lg text-zinc-900 font-semibold capitalize"
+						class="leading-none text-lg text-zinc-900 font-semibold"
 					>
 						{item.slug}
 					</a>

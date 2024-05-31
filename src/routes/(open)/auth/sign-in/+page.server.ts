@@ -40,6 +40,7 @@ export const actions: Actions = {
 		try {
 			await createSession(user.id, event.cookies);
 		} catch (e) {
+			console.log(e);
 			return fail(400, {
 				message: 'Unexpected error in Sign In'
 			});

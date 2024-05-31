@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '$/components/ui/button.svelte';
+	import { Button } from '$/components/ui/button';
 	import type { ActionData } from './$types';
 
 	import { enhance } from '$app/forms';
@@ -43,6 +43,6 @@
 			/>
 		</div>
 
-		<Button class="mt-4" variant="solid" colorScheme="primary" type="submit">Sign In</Button>
+		<Button class="mt-4" type="submit">Sign In</Button>
 	</form>
 </div>
