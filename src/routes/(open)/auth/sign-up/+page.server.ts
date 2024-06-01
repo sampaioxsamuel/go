@@ -4,9 +4,10 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import * as argon from 'argon2';
 import type { PageServerLoad } from './$types';
+import { ENABLE_SIGN_UP } from '$env/static/private';
 
 export const load: PageServerLoad = async () => {
-	if (process.env.ENABLE_SIGN_UP === 'false') {
+	if (ENABLE_SIGN_UP === 'false') {
 		redirect(302, '/');
 	}
 
@@ -15,7 +16,7 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	default: async (event) => {
-		if (process.env.ENABLE_SIGN_UP === 'false') {
+		if (ENABLE_SIGN_UP === 'false') {
 			redirect(302, '/');
 		}
 

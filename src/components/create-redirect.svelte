@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll, pushState, replaceState } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { Button } from './ui/button';
 	import {
@@ -13,12 +13,17 @@
 	} from './ui/dialog';
 	import Input from './ui/input/input.svelte';
 	import { Label } from './ui/label';
+	import { page } from '$app/stores';
 
 	let errorMessage = '';
 	let isOpen = false;
 
 	function onClose() {
-		history.back();
+		if ($page.state.createRedirect) {
+			return history.back();
+		}
+
+		goto('/');
 	}
 
 	onMount(() => {

@@ -12,11 +12,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		};
 	}
 
-	const links = await db.link.findMany({
-		where: {
-			userId: locals.session.userId
-		}
-	});
+	const links = await db.link.findMany();
 
 	return {
 		links
@@ -48,7 +44,5 @@ export const actions: Actions = {
 
 		locals.session = null;
 		locals.user = null;
-
-		console.log('LOGOUT');
 	}
 };

@@ -4,6 +4,10 @@
 	import List from '$/components/list.svelte';
 </script>
 
+<svelte:head>
+	<title>Go</title>
+</svelte:head>
+
 {#if $page.state?.createRedirect}
 	<CreateRedirect />
 {/if}

@@ -5,10 +5,10 @@
 	import type { Link } from '@prisma/client';
 	import DeleteRedirect from './delete-redirect.svelte';
 
-	export let items: Link[];
+	const { items } = $props<{ items: Link[] }>();
 	const DATE_FORMAT = 'MM/dd/yyyy HH:mm';
 
-	let deleteId = -1;
+	let deleteId = $state(-1);
 </script>
 
 <section id="redirect-list" class="grid grid-cols-3 gap-4 mt-8">
@@ -38,7 +38,7 @@
 			</div>
 
 			<div class="ml-auto" id="actions">
-				<button on:click={() => (deleteId = item.id)} class="hover:text-red-500 transition-colors">
+				<button onclick={() => (deleteId = item.id)} class="hover:text-red-500 transition-colors">
 					<TrashSimple size={18} />
 				</button>
 			</div>

@@ -5,8 +5,9 @@
 	import { Button } from './ui/button';
 	import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
 
-	let isOpen = false;
-	export let id: number;
+	let isOpen = $state(false);
+
+	let { id = $bindable() } = $props();
 
 	function onClose() {
 		id = -1;
