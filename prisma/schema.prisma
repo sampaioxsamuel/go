@@ -3,13 +3,12 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Link {
@@ -17,16 +16,26 @@ model Link {
   slug        String   @unique
   redirect    String
   description String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  views       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  name       String
-  email      String
-  nickname   String?
-  picture    String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        String    @id @default(cuid())
+  name      String
+  email     String
+  password  String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  session   Session[]
+}
+
+model Session {
+  id        String   @id
+  expiresAt Int      @map("expires_at")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 }
