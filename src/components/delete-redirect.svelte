@@ -3,7 +3,14 @@
 	import { invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { Button } from './ui/button';
-	import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
+	import {
+		Dialog,
+		DialogContent,
+		DialogFooter,
+		DialogHeader,
+		DialogTitle,
+		DialogDescription
+	} from './ui/dialog';
 
 	let isOpen = $state(false);
 
@@ -22,7 +29,8 @@
 <Dialog open={isOpen} onOpenChange={onClose}>
 	<DialogContent>
 		<DialogHeader>
-			<DialogTitle>Are you sure you want to delete this redirect?</DialogTitle>
+			<DialogTitle>Delete redirect</DialogTitle>
+			<DialogDescription>Are you sure you want to delete this redirect?</DialogDescription>
 		</DialogHeader>
 
 		<form
