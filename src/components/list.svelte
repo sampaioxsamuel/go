@@ -5,7 +5,11 @@
 	import type { Link } from '@prisma/client';
 	import DeleteRedirect from './delete-redirect.svelte';
 
-	const { items } = $props<{ items: Link[] }>();
+	type Props = {
+		items: Link[];
+	};
+
+	const { items }: Props = $props();
 	const DATE_FORMAT = 'MM/dd/yyyy HH:mm';
 
 	let deleteId = $state(-1);
